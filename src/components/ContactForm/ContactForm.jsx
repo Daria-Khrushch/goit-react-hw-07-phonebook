@@ -1,5 +1,4 @@
 import React, { useState, memo } from 'react';
-import shortid from 'shortid';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import contactsActions from '../../redux/contacts/contacts-actions';
@@ -11,9 +10,6 @@ const Form = () => {
 
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
-
-  const nameInputId = shortid.generate();
-  const telInputId = shortid.generate();
 
   const handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -42,7 +38,7 @@ const Form = () => {
 
   return (
     <form className={s.form} onSubmit={handleSubmit}>
-      <label className={s.label} htmlFor={nameInputId}>
+      <label className={s.label}>
         Name
         <input
           className={s.input}
@@ -53,11 +49,10 @@ const Form = () => {
           title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
           required
           onChange={handleChange}
-          id={nameInputId}
         />
       </label>
 
-      <label className={s.label} htmlFor={telInputId}>
+      <label className={s.label}>
         Number
         <input
           className={s.input}
@@ -68,7 +63,6 @@ const Form = () => {
           title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
           required
           onChange={handleChange}
-          id={telInputId}
         />
       </label>
       <button className={s.button} type="submit">
