@@ -9,18 +9,20 @@ export default function ContactsList() {
   const contacts = useSelector(contactsSelectors.getFilteredContacts);
   const loaderContacts = useSelector(contactsSelectors.isLoadingContacts);
   const dispatch = useDispatch();
-  const onDeleteContact = id => dispatch(contactsOperations.deleteContact(id));
 
   useEffect(() => {
     dispatch(contactsOperations.fetchContacts());
   }, [dispatch]);
 
+  const onDeleteContact = id => {
+    dispatch(contactsOperations.deleteContact(id));
+  };
+
   return (
     <>
       {loaderContacts && <h1>Загружаем...</h1>}
-      {contacts.length === 0 ? (
-        <div> No contacts </div>
-      ) : (
+      {contacts.length === 0 && <div> No contacts </div>}
+      {contacts.length > 0 && (
         <ul className={s.contactList}>
           {contacts.map(({ id, name, number }) => (
             <li key={id} className={s.item}>

@@ -1,6 +1,6 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-import contactsReducer from './contacts/contacts-reducer';
+import contactsReducer from './contacts/contacts-reducers';
 
 import {
   FLUSH,

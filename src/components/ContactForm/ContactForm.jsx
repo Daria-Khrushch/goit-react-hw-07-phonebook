@@ -2,11 +2,7 @@ import React, { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { contactsSelectors, contactsOperations } from '../../redux/contacts';
-import shortid from 'shortid';
 import s from './ContactForm.module.css';
-
-const nameInputId = shortid.generate();
-// const telInputId = shortid.generate();
 
 const Form = () => {
   const [state, setState] = useState({ name: '', number: '' });
@@ -14,9 +10,7 @@ const Form = () => {
   const contacts = useSelector(contactsSelectors.getContacts);
   const dispatch = useDispatch();
 
-  const handleChange = e => {
-    const { name, value } = e.currentTarget;
-
+  const handleChange = ({ currentTarget: { name, value } }) => {
     setState(prevState => ({
       ...prevState,
       [name]: value,
@@ -32,10 +26,10 @@ const Form = () => {
     }
 
     dispatch(contactsOperations.addContact(state));
-    reset();
+    resetState();
   };
 
-  const reset = () => {
+  const resetState = () => {
     setState({ name: '', number: '' });
   };
 
@@ -52,7 +46,6 @@ const Form = () => {
           title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
           required
           onChange={handleChange}
-          id={nameInputId}
         />
       </label>
 
@@ -67,7 +60,6 @@ const Form = () => {
           title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
           required
           onChange={handleChange}
-          id={nameInputId}
         />
       </label>
       <button className={s.button} type="submit">
